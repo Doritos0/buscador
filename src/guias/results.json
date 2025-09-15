@@ -1,0 +1,62 @@
+{
+    "Search": [
+        {
+            "Title": "Serpico",
+            "Year": "1973",
+            "imdbID": "tt0070666",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BYTg3NzUzYzYtMmQxOS00MjAwLWI0ZDYtNDg4OTQ4OTljNGFlXkEyXkFqcGc@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Frank Serpico",
+            "Year": "2017",
+            "imdbID": "tt6794376",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMjQzMTg1ODA0MV5BMl5BanBnXkFtZTgwOTkwODcwNDI@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Serpico",
+            "Year": "1976–1977",
+            "imdbID": "tt0074054",
+            "Type": "series",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BY2UzYTU1YzktMTYxNS00MGMwLWEzMTQtY2JiODI1NTlhYjQyXkEyXkFqcGdeQXVyMTQ3Njg3MQ@@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Inside 'Serpico'",
+            "Year": "2002",
+            "imdbID": "tt0872206",
+            "Type": "movie",
+            "Poster": "N/A"
+        },
+        {
+            "Title": "'Serpico': From Real to Reel",
+            "Year": "2002",
+            "imdbID": "tt0926022",
+            "Type": "movie",
+            "Poster": "N/A"
+        },
+        {
+            "Title": "'Serpico': Favorite Moments",
+            "Year": "2002",
+            "imdbID": "tt0926021",
+            "Type": "movie",
+            "Poster": "N/A"
+        },
+        {
+            "Title": "Paddy Serpico",
+            "Year": "2007",
+            "imdbID": "tt1543627",
+            "Type": "movie",
+            "Poster": "N/A"
+        },
+        {
+            "Title": "Entretien avec Franck Serpico",
+            "Year": "2006",
+            "imdbID": "tt2811444",
+            "Type": "movie",
+            "Poster": "N/A"
+        }
+    ],
+    "totalResults": "8",
+    "Response": "True"
+}
