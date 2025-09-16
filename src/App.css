@@ -174,7 +174,7 @@ main{
   float: right;
 }
 
-@media (max-width: 1081px){
+@media (max-width: 1079px){
   .pelicula-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
