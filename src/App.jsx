@@ -1,11 +1,15 @@
 import { Peliculas } from './components/Peliculas'
 import { mappedPeliculas } from './guias/mapeo_peliculas'
 import { useConsulta } from './guias/consulta'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import results from './guias/results.json'
 import './App.css'
 
 function App() {
+
+  useEffect(()=>{
+
+  },[])
 
   const [input, setInput] = useState('')
 

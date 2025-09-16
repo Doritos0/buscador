@@ -2,7 +2,10 @@ import { useState } from "react"
 
 // Custom Hook
 export function useConsulta() {
-    const [busqueda, setBusqueda] = useState(null)
+    const [busqueda, setBusqueda] = useState(()=>{
+        const busquedaFromLocal = window.localStorage.getItem('busqueda')
+        return busquedaFromLocal? JSON.parse(busquedaFromLocal) : null
+    })
     const [cargando, setCargando] = useState(false)
     const [error, setError] = useState(null)
 
