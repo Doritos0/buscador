@@ -7,25 +7,29 @@ import './App.css'
 
 function App() {
 
-  useEffect(()=>{
+    const [peliculas, setPeliculas] = useState()
 
-  },[])
+    const [error, setError] = useState(null)
 
-  const [input, setInput] = useState('')
+    const [input, setInput] = useState('')
 
-  const { busqueda, cargando, error, consultarPeliculas } = useConsulta()
 
   const buscarPelicula = (e) =>{
-    e.preventDefault()
-    console.log("esto llega al input: ",input)
-
-    consultarPeliculas(input)
+      e.preventDefault()
+      console.log({ input })
   }
 
-  // ✅ Mostrar películas de la búsqueda o las predeterminadas
-  const peliculasAMostrar = busqueda?.Search 
-    ? mappedPeliculas(busqueda)  // Si hay búsqueda, usar esas
-    : mappedPeliculas(results)   // Si no, usar las predeterminadas
+  const handleChange = (e) =>{
+        setInput(e.target.value)
+  }
+
+  useEffect(()=>{
+      if (input == ''){
+          setError('Debes ingresar una pelicula')
+      }
+      console.log('esto se renderiza cada que escribo')
+  }, [input])
+
 
   return (
     <>
@@ -34,28 +38,26 @@ function App() {
         <form className='form' onSubmit={buscarPelicula}>
           <div className='buscador'>
             
-          <input placeholder='Ingrese pelicula...' 
-                type='text' 
-                value={input} 
-                onChange={e => setInput(e.target.value)} />
+          <input
+              required
+              placeholder='Ingrese pelicula...'
+              type='text'
+              name='input'
+              onChange={handleChange}
+              value={input}
+          />
           <button 
-              type='submit' 
-              disabled={!input.trim() || cargando} // ✅ Deshabilitar durante carga
+              type='submit'
             >
-              {cargando ? 'Buscando...' : 'Buscar'} {/* ✅ Texto dinámico */}
+              Buscar
             </button>
 
           </div>
         </form>
-        {/* ✅ Mostrar error si existe */}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
       </header>
       <main>
-        {/* ✅ Mostrar indicador de carga */}
-        {cargando && <p>Cargando películas...</p>}
-        
-        {/* ✅ Mostrar películas (de búsqueda o predeterminadas) */}
-        {!cargando && <Peliculas peliculas={peliculasAMostrar} />}
+          {/*
+        {!cargando && <Peliculas peliculas={peliculasAMostrar} />}*/}
       </main>
     </>
   )
