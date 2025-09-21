@@ -1,65 +1,94 @@
-import { Peliculas } from './components/Peliculas'
-import { mappedPeliculas } from './guias/mapeo_peliculas'
-import { useConsulta } from './guias/consulta'
-import { useEffect, useState } from 'react'
-import results from './guias/results.json'
 import './App.css'
+import { useMovies } from './hooks/useMovies.js'
+import { Movies } from './components/Movies.jsx'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import debounce from 'just-debounce-it'
 
-function App() {
+function useSearch () {
+  const [search, updateSearch] = useState('')
+  const [error, setError] = useState(null)
+  const isFirstInput = useRef(true)
 
-    const [peliculas, setPeliculas] = useState()
+  useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = search === ''
+      return
+    }
 
-    const [error, setError] = useState(null)
+    if (search === '') {
+      setError('No se puede buscar una película vacía')
+      return
+    }
 
-    const [input, setInput] = useState('')
+    if (search.match(/^\d+$/)) {
+      setError('No se puede buscar una película con un número')
+      return
+    }
 
+    if (search.length < 3) {
+      setError('La búsqueda debe tener al menos 3 caracteres')
+      return
+    }
 
-  const buscarPelicula = (e) =>{
-      e.preventDefault()
-      console.log({ input })
+    setError(null)
+  }, [search])
+
+  return { search, updateSearch, error }
+}
+
+function App () {
+  const [sort, setSort] = useState(false)
+
+  const { search, updateSearch, error } = useSearch()
+  const { movies, loading, getMovies } = useMovies({ search, sort })
+
+  const debouncedGetMovies = useCallback(
+    debounce(search => {
+      console.log('search', search)
+      getMovies({ search })
+    }, 300)
+    , [getMovies]
+  )
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    getMovies({ search })
   }
 
-  const handleChange = (e) =>{
-        setInput(e.target.value)
+  const handleSort = () => {
+    setSort(!sort)
   }
 
-  useEffect(()=>{
-      if (input == ''){
-          setError('Debes ingresar una pelicula')
-      }
-      console.log('esto se renderiza cada que escribo')
-  }, [input])
-
+  const handleChange = (event) => {
+    const newSearch = event.target.value
+    updateSearch(newSearch)
+    debouncedGetMovies(newSearch)
+  }
 
   return (
-    <>
-      <h1>Technical Tests.</h1>
-      <header>
-        <form className='form' onSubmit={buscarPelicula}>
-          <div className='buscador'>
-            
-          <input
-              required
-              placeholder='Ingrese pelicula...'
-              type='text'
-              name='input'
-              onChange={handleChange}
-              value={input}
-          />
-          <button 
-              type='submit'
-            >
-              Buscar
-            </button>
+    <div className='page'>
 
-          </div>
+      <header>
+        <h1>Buscador de películas</h1>
+        <form className='form' onSubmit={handleSubmit}>
+          <input
+            style={{
+              border: '1px solid transparent',
+              borderColor: error ? 'red' : 'transparent'
+            }} onChange={handleChange} value={search} name='query' placeholder='Avengers, Star Wars, The Matrix...'
+          />
+          <input type='checkbox' onChange={handleSort} checked={sort} />
+          <button type='submit'>Buscar</button>
         </form>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </header>
+
       <main>
-          {/*
-        {!cargando && <Peliculas peliculas={peliculasAMostrar} />}*/}
+        {
+          loading ? <p>Cargando...</p> : <Movies movies={movies} />
+        }
       </main>
-    </>
+    </div>
   )
 }
 
